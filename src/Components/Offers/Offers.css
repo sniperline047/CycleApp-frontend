@@ -1,0 +1,12 @@
+.foot {
+    position: absolute;
+    bottom: 0;
+}
+.head {
+    height: 10%;
+}
+.iamgroot {
+    background-color: #50fbdf;
+    min-height: 365px;
+    height: 80%;
+}

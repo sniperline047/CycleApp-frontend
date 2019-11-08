@@ -1,0 +1,19 @@
+.top {
+    background-image: url(../../Images/homeBg.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 600px;
+    height: 70%;
+    top: 0;
+}
+
+.bg-text {
+    background-color: rgba(255, 255, 255, 0.8);
+    width: 100%;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
