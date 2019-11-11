@@ -1,7 +1,12 @@
-.root {
+.navBar {
+    bottom: 0; 
+    position: absolute; 
     width: 100%;
+    box-shadow: 0 0 6px #000;
 }
 
-.nav {
-    background-color: #50FBDF;
+.navBox:hover {
+    background-color: #fff;
+    box-shadow: 0 0 6px #3f51b5;
+    border: none;
 }

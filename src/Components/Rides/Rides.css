@@ -1,0 +1,15 @@
+.root-container {
+    background-image: url(../../Images/optionBg.jpg);
+    height: 91vh;
+    padding: 1em;
+    color: white;
+}
+
+.root-text {
+    margin: 20px;
+    height: 40vh;
+}
+
+.root-btn {
+    height: 40vh;
+}

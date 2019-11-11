@@ -5,9 +5,9 @@ import './splashScreen.css';
 function LoadingMessage() {
   return (
     <div className='splash-screen'>
-      <img src={cycleGif} alt="cycle-gif" width="25%" height="auto" className='mt4 mb3 br3 ba'/>
+      <img src={cycleGif} alt="cycle-gif" className='mt4 mb3 br3 ba load-img'/>
       <div className="loading-dot">.</div>
-      <p className='text-load'>Loading</p>
+      <p className='text'>Loading</p>
     </div>
   );
 }
@@ -26,14 +26,13 @@ function withSplashScreen(WrappedComponent) {
           this.setState({
             loading: false,
           });
-        }, 1000)
+        }, 2000)
     }
 
     render() {
-      if (this.state.loading) 
-        return LoadingMessage();
-      else 
-        return <WrappedComponent {...this.props} />;
+      if (this.state.loading) return LoadingMessage();
+      
+      return <WrappedComponent {...this.props} />;
     }
   };
 }

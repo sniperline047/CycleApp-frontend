@@ -1,9 +1,8 @@
 * {box-sizing: border-box}
 
 .container {
-  padding-right: 16px;
-  padding-left: 16px;
-  padding-bottom: 16px;
+  padding-right: 0px 16px 16px 16px;
+  width: 60%;
 }
 
 input[type=text], input[type=password], input[type=number], input[type=date] {
@@ -27,7 +26,7 @@ hr {
 
 .registerbtn {
   background-color: #4CAF50;
-  color: white;
+  color: #fff;
   padding: 16px 20px;
   margin: 8px 0;
   border: none;
@@ -40,13 +39,31 @@ hr {
   opacity:1;
 }
 
-a {
-  color: dodgerblue;
-}
-
 .signin {
   padding-top: 16px;
   background-color: #f1f1f1;
   text-align: center;
 }
 
+@media only screen and (max-width: 700px) {
+  .container {
+      width: 90%;
+  }
+}
+
+input.error {
+  border: 1px solid #EADAE4;
+}
+
+.error {
+  color:#db2269;
+  font-size: 0.625em;
+  display: relative;
+}
+
+.info {
+  color: #bbb;
+  padding-bottom: 1em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}

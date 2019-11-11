@@ -1,7 +1,5 @@
 import React from 'react';
-import Header from '../Header';
-import Navigation from '../Navigation/Navigation';
-import './Offers.css';
+import './MyRides.css';
 
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -22,12 +20,11 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function Offers() {
+export default function MyRides() {
     const classes = useStyles();
 
     return(
         <div>
-            <Header name='Offer' className='head' />
             <List className={classes.root}>
             <ListItem>
               <ListItemAvatar>
@@ -55,9 +52,6 @@ function Offers() {
             </ListItem>
           </List>
           <div className='iamgroot'></div>
-            <Navigation className='foot' />
         </div>
     );
 }
-
-export default Offers;

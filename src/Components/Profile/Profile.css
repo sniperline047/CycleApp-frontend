@@ -1,12 +1,38 @@
-.foot {
-    position: absolute;
-    bottom: 0;
+.cardBar {
+    background-color: rgba(187, 187, 187, 0.6);
+    border-radius: 20px;
+    box-shadow: 0 0 6px #50FBDF;
+    width: 20%;
+    height: 50vh;
+    margin-top: 20px;
+    padding: 20px 20px 0px 20px;
 }
-.head {
-    height: 10%;
+
+.profile-img {
+    padding: 5px;
+    width: 100px;
+    height: auto;
 }
-.igroot {
-    background-color: #50fbdf;
-    min-height: 615px;
-    height: 80%;
+
+.topContainer {
+    height: 70vh;
+}
+
+.copyright-info {
+    position: ;
+    color: #bbb;
+    height: 10vh;
+}
+
+@media only screen and (max-width: 1200px) {
+    .cardBar {
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 380px) {
+    .cardBar {
+        height: 60vh;
+        width: 80%;
+    }
 }

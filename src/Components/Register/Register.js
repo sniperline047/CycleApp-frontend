@@ -1,125 +1,176 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import back from '../../Images/back.png';
 import logo from '../../Images/logo.png';
-import google from '../../Images/google.png';
 import './Register.css';
+import Header from '../Header';
+import GoogleBtn from '../GoogleBtn/GoogleBtn';
+import {register, validateForm, validEmailRegex} from '../../Helpers/UserFunction';
 
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-
-const useStyles = makeStyles(theme => ({
-    root: {
-        flexGrow: 1,
-    },
-    bar: {
-        backgroundColor: '#F6D11C',
-        color: 'white',
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    title: {
-        flexGrow: 1,
-    },
-}));
-
-function RegisterHeader() {
-    const classes = useStyles();
-
-    return(
-        <div className={classes.root} >
-            <AppBar position="static" className={classes.bar}>
-                <Toolbar>
-                    <Link to='/'>
-                        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                            <img src={back} alt='back' width='30px' />
-                        </IconButton>
-                    </Link>
-                    <Typography variant="h6" className={classes.title}>
-                        Register
-                    </Typography>
-                    <Link to='/Login' className='link pointer white'>
-                        <Button color="inherit">Login</Button>
-                    </Link>
-                </Toolbar>
-            </AppBar>
-        </div>
-    );
-}
 
 class Register extends React.Component {
 	constructor() {
 		super()
 		this.state = {
-			first_name: '',
-			last_name: '',
-			dob: '',
-			mob: '',
-			email: '',
-			password: '',
+			first_name: null,
+			last_name: null,
+			dob: null,
+			mob: null,
+			email: null,
+            password: null,
+            errors: {
+                first_name: '',
+                last_name: '',
+                mob: '',
+                email: '',
+                password: '',
+            }
 		}
 
 		this.onChange = this.onChange.bind(this)
 		this.onSubmit = this.onSubmit.bind(this) 
 	}
 
-	onChange = (event) => {
-		this.setState({[event.target.name]: event.target.value});
-	}
+    onChange = (event) => {
+        event.preventDefault();
+        const { name, value } = event.target;
+        let errors = this.state.errors;
+    
+        switch (name) {
+            case 'first_name':
+                errors.first_name = 
+                value.length < 2
+                    ? 'Required'
+                    : '';
+                break;
+            case 'last_name':
+                    errors.last_name = 
+                    value.length < 2
+                        ? 'Required'
+                        : '';
+                    break;
+            case 'mob': 
+                errors.mob = 
+                    (value.length < 10 || value.length > 10)
+                    ? 'Mobile Number must be 10 characters long!'
+                    : '';
+                break;
+            case 'email': 
+                errors.email = 
+                    validEmailRegex.test(value)
+                        ? ''
+                        : 'Email is not valid!';
+                break;
+            case 'password': 
+                errors.password = 
+                    value.length < 8
+                        ? 'Password must be 8 characters long!'
+                        : '';
+                break;
+            default:
+                break;
+        }
+    
+        this.setState({errors, [name]: value});
+    }
 	
 	onSubmit = (event) => {
-		event.preventDefault()
+        event.preventDefault()
+        
+        if(validateForm(this.state.errors)) {
+            const user = {
+                first_name: this.state.first_name,
+                last_name: this.state.last_name,
+                dob: this.state.dob,
+                mob: this.state.mob,
+                email: this.state.email,
+                password: this.state.password,
+            }
 
-		this.props.history.push('/login');
+            register(user).then(res => {
+                if(res) {
+                    alert('Registered succesfully');
+                    this.props.history.push('/login');
+                }
+                else {
+                    alert('Could not register');
+                }
+            })
+        }else{
+            console.error('Invalid Form')
+        }  
+    }
+
+    onGoogleClick = () => {
+        return alert(`Can't connect to Google server right now.`);
     }
     
     render() {
+        const {errors} = this.state;
+
         return(
-            <div>
-                <RegisterHeader />
+            <div className='App'>
+                <Header name='Register'/>
                 <div>
                     <img src={logo} alt='logo' height='100px' width='auto' />
                 </div> 
-                <button className="google-btn">
-                    <span role='img'><img src={google} alt='google' height='30px' /> Login with Google</span>
-                </button>
-                <p className='textSmall'><span>━━━━━━</span> OR <span>━━━━━━</span></p>
-                <form noValidate onSubmit={this.onSubmit}>
+                <GoogleBtn onGoogleClick={this.onGoogleClick} />
+                <p className='text'><span>━━━━━━</span> OR <span>━━━━━━</span></p>
+
+                <form noValidate onSubmit={this.onSubmit} className='center'>
                     <div className="container">
                         <p>Please fill in this form to create an account.</p>
                         <hr/>
-                        <label for="psw-repeat"><b>First Name</b></label>
-                        <input type="text" placeholder="First Name" name="first-name" required value={this.state.first_name} onChange={this.onChange} />
 
-                        <label for="psw-repeat"><b>Last Name</b></label>
-                        <input type="text" placeholder="Last Name" name="last-name" required value={this.state.last_name} onChange={this.onChange} />
+                        <div>
+                            <label><b>First Name</b></label>
+                            <input type="text" placeholder="First Name" name="first_name" required onChange={this.onChange} />
+                            {errors.first_name.length > 0 && 
+                                <span className='error'>{errors.first_name}</span>}
+                        </div>
 
-                        <label for="psw-repeat"><b>DOB</b></label>
-                        <input type="date" placeholder="DOB" name="dob" required value={this.state.dob} onChange={this.onChange} />
+                        <div>
+                            <label><b>Last Name</b></label>
+                            <input type="text" placeholder="Last Name" name="last_name" required onChange={this.onChange} />
+                            {errors.last_name.length > 0 && 
+                                <span className='error'>{errors.last_name}</span>}
+                        </div>
 
-                        <label for="psw-repeat"><b>Modile Number</b></label>
-                        <input type="number" placeholder="Modile Number" name="mob" required maxLength="10"  value={this.state.mob} onChange={this.onChange} />
+                        <label><b>DOB</b></label>
+                        <input type="date"  max="2002-10-01" placeholder="DOB" name="dob" required onChange={this.onChange} />
 
-                        <label for="email"><b>Email</b></label>
-                        <input type="text" placeholder="Enter Email" name="email" required  value={this.state.email} onChange={this.onChange} />
+                        <div>
+                            <label><b>Modile Number</b></label>
+                            <input type="number" placeholder="Modile Number" name="mob" required onChange={this.onChange} noValidate/>
+                            {errors.mob.length > 0 && 
+                                <span className='error'>{errors.mob}</span>}
+                        </div>
+                        
+                        <div>
+                            <label><b>Email</b></label>
+                            <input type="text" placeholder="Enter Email" name="email" required onChange={this.onChange} noValidate/>
+                            {errors.email.length > 0 && 
+                                <span className='error'>{errors.email}</span>}
+                        </div>
                     
-                        <label for="psw"><b>Password</b></label>
-                        <input type="password" placeholder="Enter Password" name="psw" required minLength="4"  value={this.state.password} onChange={this.onChange} />
+                        <div>
+                            <label><b>Password</b></label>
+                            <input type="password" placeholder="Enter Password" name="password" required onChange={this.onChange} noValidate/>
+                            {errors.password.length > 0 && 
+                                <span className='error'>{errors.password}</span>}
+                        </div>
+                        <div className='info'>
+                            <small>Password must be eight characters in length.</small>
+                        </div>
                         <hr/>
                     
                         <p>By creating an account you agree to our <Link to='/'>Terms & Privacy</Link></p>                     
                         <button type="submit" className="registerbtn">Register</button>
-                    </div>
-                    
-                    <div className="container signin">
-                        <p>Already have an account? <Link to='/Login'>Log in</Link></p>
-                    </div> 
+                    </div>    
                 </form>
+                
+                <div className="container signin center w-100">
+                    <p>Already have an account? <Link to='/login'>Log in</Link></p>
+                </div> 
             </div>
         );
     }

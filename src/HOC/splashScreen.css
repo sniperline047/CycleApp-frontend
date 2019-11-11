@@ -8,6 +8,11 @@
     height: 100%;
 }
 
+.load-img {
+    height: 20vh;
+    width: auto;
+}
+
 .splash-screen .loading-dot {
     font-size: 100px;
     margin-top: -80px;
@@ -29,9 +34,4 @@
         left: 90px;
         color: #eee;
     }
-}
-
-.text-load {
-    font-family: 'Yeon Sung', cursive, 'Courier New', Courier, monospace;
-    font-size: 5vw;
 }

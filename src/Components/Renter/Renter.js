@@ -19,7 +19,7 @@ class Renter extends Component {
     
     onSubmit = (event) => {
         event.preventDefault()
-        this.props.history.push('/Status');
+        this.props.history.push('/list');
     }
 
     render() {
@@ -30,7 +30,7 @@ class Renter extends Component {
                 </p>
                 <div id="form-main">
                     <div id="form-div">
-                        <form className="montform" id="reused_form">
+                        <form className="montform" id="reused_form" onSubmit={this.onSubmit}>
                             <p className="name">
                                 <input name="name" type="text" className="feedback-input" required placeholder="Name" id="name" />
                             </p>
@@ -60,7 +60,7 @@ class Renter extends Component {
                 <hr/>
                 <p className='h1'>OR</p>
                 <hr/>
-                <Link to='/option'>
+                <Link to='/dashboard/rides'>
                     <button class="white b pv2 ph3 bg-gold hover-bg-mid-gray bn br-pill mt2">
                         Go Back
                     </button>
