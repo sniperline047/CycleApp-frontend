@@ -24,7 +24,7 @@ class DashboardHome extends React.Component {
     }
 
     async componentDidMount() {
-        fetch("http://ataservice.accuweather.com/currentconditions/v1/190066?apikey=mXAnG2iwcSc8AuIXj02pfnmSs6dGXZ9a", {
+        fetch("http://dataservice.accuweather.com/currentconditions/v1/190066?apikey=mXAnG2iwcSc8AuIXj02pfnmSs6dGXZ9a", {
             "method": "GET",
         })
         .then(resp => resp.json())
