@@ -1,16 +1,17 @@
-.main {
-    overflow: hidden;
-}
-.container1 {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 20px;
+* {box-sizing: border-box}
+
+.containerBox {
+    padding: 20px 16px 16px 20px;
+    width: 90%;
+    background-color: rgb(242, 242, 242, 0.5);
+    color: black;
+    border-radius: 20px;
 }
 
 input[type=time], input[type=date]  {
     width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
+    padding: 20px;
+    margin: 5px 0px 22px 0px;
     display: inline-block;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -18,7 +19,7 @@ input[type=time], input[type=date]  {
 }
 
 input[type=submit] {
-    width: 100%;
+    width: 90%;
     background-color: #4CAF50;
     color: white;
     padding: 14px 20px;

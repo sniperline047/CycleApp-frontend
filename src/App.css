@@ -17,3 +17,20 @@
     font-size: 5vw;
   }
 }
+
+.dashboard {
+  height: 100vh;
+  color: white;
+  background-image: linear-gradient(to right top, #051937, #0a244e, #142f67, #223a80, #334599);
+}
+
+.bookBtn {
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}

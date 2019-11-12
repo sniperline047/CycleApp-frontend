@@ -16,6 +16,11 @@ export function getLink(value) {
     else return 'Dashboard';
 }
 
+export function getRoute(value) {
+    if(value === 'Login'|| value === 'Register') return '/';
+    else return '/dashboard/?name=dashboard';
+}
+
 export const register = newUser => {
 	return axios
 	.post('https://cycle-it-api.herokuapp.com/users/register', {

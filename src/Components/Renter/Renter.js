@@ -61,7 +61,7 @@ class Renter extends Component {
                 <p className='h1'>OR</p>
                 <hr/>
                 <Link to='/dashboard/rides'>
-                    <button class="white b pv2 ph3 bg-gold hover-bg-mid-gray bn br-pill mt2">
+                    <button className="white b pv2 ph3 bg-gold hover-bg-mid-gray bn br-pill mt2">
                         Go Back
                     </button>
                 </Link>

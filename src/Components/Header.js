@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import back from '../Images/back.png';
-import {getName, getLink} from '../Helpers/UserFunction';
+import {getName, getLink, getRoute} from '../Helpers/UserFunction';
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -33,12 +33,13 @@ export default function Header({name}) {
     const classes = useStyles();
     const displayName = getName(name);
     const displayLink = getLink(name);
+    const route = getRoute(name);
 
     return(
         <div className='root'>
             <AppBar position="static" className={classes.bar}>
                 <Toolbar>
-                    <Link to='/'>
+                    <Link to={`${route}`}>
                         <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                             <img src={back} alt='back' width='30px' />
                         </IconButton>

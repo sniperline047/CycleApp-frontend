@@ -1,14 +1,14 @@
 * {box-sizing: border-box}
 
 .container {
-  padding-right: 0px 16px 16px 16px;
+  padding: 0px 16px 16px 16px;
   width: 60%;
 }
 
 input[type=text], input[type=password] {
   width: 100%;
   padding: 15px;
-  margin: 5px 0 22px 0;
+  margin: 5px 0px 22px 0px;
   display: inline-block;
   border: none;
   background: #f1f1f1;

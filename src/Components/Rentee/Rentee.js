@@ -1,14 +1,18 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import './Rentee.css';
+import {withRouter} from 'react-router-dom';
 
 class Rentee extends Component {
     constructor() {
         super();
+
+        var today = new Date(),
+        date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
         this.state = {
-            start_time: '',
-            end_time: '',
-            date: '',
+            start_time: '10:00',
+            end_time: '12:00',
+            date: date,
         }
 
             this.onChange = this.onChange.bind(this)
@@ -21,38 +25,32 @@ class Rentee extends Component {
     
     onSubmit = (event) => {
         event.preventDefault()
-        this.props.history.push('/list');
+        this.props.history.push('/dashboard/list?name=rides');
     }
 
     render() {
         return(
-            <div className='main'>
-                <p className='pl1 tl f1'>Find A Bike</p>
-                <div className='container1'>
-                    <form noValidate onSubmit={this.onSubmit}>
-                        <label for="start_time">Start Time</label>
-                        <input type="time" id="stime" name="start_time" placeholder="Start Time" value={this.state.start_time} onChange={this.onChange} />
-                    
-                        <label for="end_time">End Time</label>
-                        <input type="time" id="etime" name="end_time" placeholder="End Time" value={this.state.end_time} onChange={this.onChange}/>
-                    
-                        <label for="date">Date</label>
-                        <input type="date" id="dt" name="date" placeholder="Date" value={this.state.date} onChange={this.onChange}/>
-                    
-                        <input type="submit" value="Find" />
+            <div className='App dashboard center'>
+                <div>
+                    <p className='pl1 tl f1'>Find A Bike</p>
+                    <form noValidate onSubmit={this.onSubmit} className='center'>
+                        <div className='containerBox'>
+                            <label>Start Time</label>
+                            <input type="time" id="stime" name="start_time" placeholder="Start Time" value={this.state.start_time} onChange={this.onChange} />
+                        
+                            <label>End Time</label>
+                            <input type="time" id="etime" name="end_time" placeholder="End Time" value={this.state.end_time} onChange={this.onChange}/>
+                        
+                            <label>Date</label>
+                            <input type="date" id="dt" name="date" placeholder="Date" value={this.state.date} onChange={this.onChange}/>
+                        
+                            <input type="submit" value="Find" />
+                        </div>
                     </form>
                 </div>
-                <hr/>
-                <p className='h1'>OR</p>
-                <hr/>
-                <Link to='/dashboard/rides'>
-                    <button class="white b pv2 ph3 bg-gold hover-bg-mid-gray bn br-pill">
-                        Go Back
-                    </button>
-                </Link>
             </div>
         );
     }
 }
 
-export default Rentee;
+export default withRouter(Rentee);
