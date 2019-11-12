@@ -1,8 +1,8 @@
 .navBar {
-    bottom: 0; 
-    position: absolute; 
-    width: 100%;
     box-shadow: 0 0 6px #000;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
 .navBox:hover {

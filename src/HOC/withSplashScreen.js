@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import cycleGif from '../Images/giphy.gif';
 import './splashScreen.css';
 
-function LoadingMessage() {
+export function LoadingMessage() {
   return (
     <div className='splash-screen'>
       <img src={cycleGif} alt="cycle-gif" className='mt4 mb3 br3 ba load-img'/>

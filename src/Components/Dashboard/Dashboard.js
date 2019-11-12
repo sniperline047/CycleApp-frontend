@@ -26,8 +26,8 @@ export default function Dashboard() {
 
     return (
         <div className='App'>
-            <Header name={query.get("name")} className='header' />
-            <div className='route App'>
+            <Header name={query.get("name")}/>
+            <div className='App'>
                 <Switch>
                     <Route exact path={`${path}`}>
                         <DashboardHome />
@@ -49,7 +49,7 @@ export default function Dashboard() {
                     </Route>
                 </Switch>
             </div>
-            <Navigation className='nav-bar' name={query.get("name")}/>
+            <Navigation name={query.get("name")}/>
         </div>
     );
 }
