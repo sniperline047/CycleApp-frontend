@@ -34,3 +34,21 @@
   width: 100%;
   opacity: 0.9;
 }
+
+.change-btn {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  border-radius: 50%;
+  border: none;
+  background-color: white;
+}
+
+.change-btn1 {
+  position: absolute;
+  top: 0px;
+  left: 8px;
+  border-radius: 50%;
+  border: none;
+  background-color: white;
+}

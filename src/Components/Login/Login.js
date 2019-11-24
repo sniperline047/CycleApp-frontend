@@ -35,12 +35,22 @@ export default class Login extends React.Component {
                 password: this.state.password
             }
             
-            login(user).then(res => {
+            login(user).then(resp => {
                 this.setState({load: false});
-                if(res) {
+                if(resp.data.token) {
                     this.props.history.push('/dashboard?name=dashboard');
                 } else {
-                    alert("Wrong Credentials!");
+                    alert("Couldn't login right now, please try again later");
+                }
+            })
+            .catch((err) => {
+                this.setState({load: false});
+                if(err.response) {
+                    console.log(err.response.data.error);
+                    alert(err.response.data.error);
+                }
+                else {
+                    alert('Unwanted error occured');
                 }
             })
         }

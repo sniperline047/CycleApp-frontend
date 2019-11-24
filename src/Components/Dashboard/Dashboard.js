@@ -51,7 +51,7 @@ class DashboardHome extends React.Component {
                     </div>
                 </div>
                 <p style={{opacity: '0.8'}}>Powered by AccuWeather©</p>
-                <h6 className='text'>All good??</h6>
+                <h6 className='text sans-serif'>All seems to be good for a ride??<span role='img' aria-label='cycle'>🚴</span></h6>
                 <Link to='/dashboard/rides?name=rides'>
                     <button className='bookBtn w-60 br3'>Book/Lease a ride!</button>
                 </Link>

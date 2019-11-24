@@ -5,6 +5,7 @@ import './Register.css';
 import Header from '../Header';
 import GoogleBtn from '../GoogleBtn/GoogleBtn';
 import {register, validateForm, validEmailRegex} from '../../Helpers/UserFunction';
+import {LoadingMessage} from '../../HOC/withSplashScreen';
 
 
 class Register extends React.Component {
@@ -13,7 +14,7 @@ class Register extends React.Component {
 		this.state = {
 			first_name: null,
 			last_name: null,
-			dob: null,
+			rollNo: null,
 			mob: null,
 			email: null,
             password: null,
@@ -23,7 +24,9 @@ class Register extends React.Component {
                 mob: '',
                 email: '',
                 password: '',
-            }
+                rollNo: '',
+            },
+            load: false
 		}
 
 		this.onChange = this.onChange.bind(this)
@@ -54,6 +57,12 @@ class Register extends React.Component {
                     ? 'Mobile Number must be 10 characters long!'
                     : '';
                 break;
+            case 'rollNo': 
+                errors.rollNo = 
+                    (value.length < 9 || value.length > 9)
+                    ? 'Enter Correct Roll Number!'
+                    : '';
+                break;
             case 'email': 
                 errors.email = 
                     validEmailRegex.test(value)
@@ -75,27 +84,34 @@ class Register extends React.Component {
 	
 	onSubmit = (event) => {
         event.preventDefault()
-        
+        this.setState({load: true});
         if(validateForm(this.state.errors)) {
             const user = {
-                first_name: this.state.first_name,
-                last_name: this.state.last_name,
-                dob: this.state.dob,
-                mob: this.state.mob,
+                firstName: this.state.first_name,
+                lastName: this.state.last_name,
+                rollNo: this.state.rollNo,
+                mobileNo: this.state.mob,
                 email: this.state.email,
                 password: this.state.password,
             }
 
-            register(user).then(res => {
-                if(res) {
-                    alert('Registered succesfully');
+            register(user)
+            .then(resp => {
+                this.setState({load: false});
+                if (resp.statusText === 'Created') {
+                    alert(resp.data.message)
                     this.props.history.push('/login');
                 }
                 else {
-                    alert('Could not register');
+                    alert('Could not register at this moment');
                 }
             })
-        }else{
+            .catch((err) => {
+                this.setState({load: false});
+                console.log(err.response.data);
+                alert(err.response.data);
+            })
+        } else{
             console.error('Invalid Form')
         }  
     }
@@ -110,67 +126,79 @@ class Register extends React.Component {
         return(
             <div className='App'>
                 <Header name='Register'/>
-                <div>
-                    <img src={logo} alt='logo' height='100px' width='auto' />
-                </div> 
-                <GoogleBtn onGoogleClick={this.onGoogleClick} />
-                <p className='text'><span>━━━━━━</span> OR <span>━━━━━━</span></p>
-
-                <form noValidate onSubmit={this.onSubmit} className='center'>
-                    <div className="container">
-                        <p>Please fill in this form to create an account.</p>
-                        <hr/>
-
+                {
+                    this.state.load
+                    ? 
+                    <LoadingMessage />
+                    :
+                    <div>
                         <div>
-                            <label><b>First Name</b></label>
-                            <input type="text" placeholder="First Name" name="first_name" required onChange={this.onChange} />
-                            {errors.first_name.length > 0 && 
-                                <span className='error'>{errors.first_name}</span>}
-                        </div>
-
-                        <div>
-                            <label><b>Last Name</b></label>
-                            <input type="text" placeholder="Last Name" name="last_name" required onChange={this.onChange} />
-                            {errors.last_name.length > 0 && 
-                                <span className='error'>{errors.last_name}</span>}
-                        </div>
-
-                        <label><b>DOB</b></label>
-                        <input type="date"  max="2002-10-01" placeholder="DOB" name="dob" required onChange={this.onChange} />
-
-                        <div>
-                            <label><b>Modile Number</b></label>
-                            <input type="number" placeholder="Modile Number" name="mob" required onChange={this.onChange} noValidate/>
-                            {errors.mob.length > 0 && 
-                                <span className='error'>{errors.mob}</span>}
-                        </div>
+                            <img src={logo} alt='logo' height='100px' width='auto' />
+                        </div> 
+                        <GoogleBtn onGoogleClick={this.onGoogleClick} />
+                        <p className='text'><span>━━━━━━</span> OR <span>━━━━━━</span></p>
+        
+                        <form noValidate onSubmit={this.onSubmit} className='center'>
+                            <div className="container">
+                                <p>Please fill in this form to create an account.</p>
+                                <hr/>
+        
+                                <div>
+                                    <label><b>First Name</b></label>
+                                    <input type="text" placeholder="First Name" name="first_name" required onChange={this.onChange} />
+                                    {errors.first_name.length > 0 && 
+                                        <span className='error f4'>{errors.first_name}</span>}
+                                </div>
+        
+                                <div>
+                                    <label><b>Last Name</b></label>
+                                    <input type="text" placeholder="Last Name" name="last_name" required onChange={this.onChange} />
+                                    {errors.last_name.length > 0 && 
+                                        <span className='error f4'>{errors.last_name}</span>}
+                                </div>
+        
+                                <div>
+                                    <label><b>Roll No.</b></label>
+                                    <input type="number" placeholder="Roll Number" name="rollNo" required onChange={this.onChange} noValidate/>
+                                    {errors.rollNo.length > 0 && 
+                                        <span className='error f4'>{errors.rollNo}</span>}
+                                </div>
+        
+                                <div>
+                                    <label><b>Modile Number</b></label>
+                                    <input type="number" placeholder="Modile Number" name="mob" required onChange={this.onChange} noValidate/>
+                                    {errors.mob.length > 0 && 
+                                        <span className='error f4'>{errors.mob}</span>}
+                                </div>
+                                
+                                <div>
+                                    <label><b>Email</b></label>
+                                    <input type="text" placeholder="Enter Email" name="email" required onChange={this.onChange} noValidate/>
+                                    {errors.email.length > 0 && 
+                                        <span className='error f4'>{errors.email}</span>}
+                                </div>
+                            
+                                <div>
+                                    <label><b>Password</b></label>
+                                    <input type="password" placeholder="Enter Password" name="password" required onChange={this.onChange} noValidate/>
+                                    {errors.password.length > 0 && 
+                                        <span className='error f4'>{errors.password}</span>}
+                                </div>
+                                <div className='info'>
+                                    <small>Password must be eight characters in length.</small>
+                                </div>
+                                <hr/>
+                            
+                                <p>By creating an account you agree to our <Link to='/'>Terms & Privacy</Link></p>                     
+                                <button type="submit" className="registerbtn">Register</button>
+                            </div>    
+                        </form>
                         
-                        <div>
-                            <label><b>Email</b></label>
-                            <input type="text" placeholder="Enter Email" name="email" required onChange={this.onChange} noValidate/>
-                            {errors.email.length > 0 && 
-                                <span className='error'>{errors.email}</span>}
-                        </div>
-                    
-                        <div>
-                            <label><b>Password</b></label>
-                            <input type="password" placeholder="Enter Password" name="password" required onChange={this.onChange} noValidate/>
-                            {errors.password.length > 0 && 
-                                <span className='error'>{errors.password}</span>}
-                        </div>
-                        <div className='info'>
-                            <small>Password must be eight characters in length.</small>
-                        </div>
-                        <hr/>
-                    
-                        <p>By creating an account you agree to our <Link to='/'>Terms & Privacy</Link></p>                     
-                        <button type="submit" className="registerbtn">Register</button>
-                    </div>    
-                </form>
-                
-                <div className="container signin center w-100">
-                    <p>Already have an account? <Link to='/login'>Log in</Link></p>
-                </div> 
+                        <div className="container signin center w-100">
+                            <p>Already have an account? <Link to='/login'>Log in</Link></p>
+                        </div> 
+                    </div>
+                }
             </div>
         );
     }

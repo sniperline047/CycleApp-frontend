@@ -23,36 +23,75 @@ export function getRoute(value) {
 
 export const register = newUser => {
 	return axios
-	.post('https://cycle-it-api.herokuapp.com/users/register', {
-		first_name: newUser.first_name,
-		last_name: newUser.last_name,
+	.post('http://localhost:5000/cycle-it-be434/us-central1/api/register', {
+		firstName: newUser.firstName,
+		lastName: newUser.lastName,
 		email: newUser.email,
-		mob: newUser.mob,
-		dob: newUser.dob,
+		mobileNo: newUser.mobileNo,
+		rollNo: newUser.rollNo,
 		password: newUser.password,
 	})
-    .then(user => {
-        if (user) {
-            return user;
-        }
+    .then(resp => {
+		return resp;
     })
 }
 
 export const login = user => {
 	return axios
-	.post('https://cycle-it-api.herokuapp.com/users/login', {
+	.post('http://localhost:5000/cycle-it-be434/us-central1/api/login', {
 		email: user.email,
 		password: user.password,
 	})
-	.then(res => {
-		if(res) {
-			localStorage.setItem('usertoken', res.data);
-			return res.data;
-		}
+	.then(resp => {
+		const token =  `Bearer ${resp.data.token}`
+		localStorage.setItem('usertoken',token);
+		axios.defaults.headers.common['Authorization'] = token;
+		return resp;
 	})
-	.catch(err => {
-		console.log(err);
-	})
+}
+
+export const userProfile = async () => {
+	const token = localStorage.getItem('usertoken');
+	const resp = await axios
+		.get('http://localhost:5000/cycle-it-be434/us-central1/api/profile', {
+			headers: {
+				Authorization: token
+			}
+		});
+	return resp;
+}
+
+export const userImage = async (formData) => {
+	const token = localStorage.getItem('usertoken');
+	const resp = await axios
+		.post('http://localhost:5000/cycle-it-be434/us-central1/api/users/image', formData, {
+			headers: {
+				Authorization: token
+			}
+		});
+	return resp;
+}
+
+export const bicycleImage = async (formData,bicyclefrmNo) => {
+	const token = localStorage.getItem('usertoken');
+	const resp = await axios
+		.post(`http://localhost:5000/cycle-it-be434/us-central1/api/addBicycleImage/${bicyclefrmNo}`, formData, {
+			headers: {
+				Authorization: token
+			}
+		});
+	return resp;
+}
+
+export const userBicycle = async () => {
+	const token = localStorage.getItem('usertoken');
+	const resp = await axios
+		.get('http://localhost:5000/cycle-it-be434/us-central1/api/getBicycle', {
+			headers: {
+				Authorization: token
+			}
+		});
+	return resp;
 }
 
 export const validEmailRegex = RegExp(/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i);

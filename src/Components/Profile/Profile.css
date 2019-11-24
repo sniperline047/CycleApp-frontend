@@ -1,4 +1,5 @@
 .cardBar {
+    position: relative;
     background-color: rgba(187, 187, 187, 0.6);
     border-radius: 20px;
     box-shadow: 0 0 6px #50FBDF;
@@ -8,10 +9,11 @@
     padding: 20px 20px 0px 20px;
 }
 
-.profile-img {
-    padding: 5px;
-    width: 100px;
-    height: auto;
+.lgt-btn {
+    width: 100%;
+    position: absolute;
+    bottom: -45px;
+    left: 0;
 }
 
 .topContainer {
@@ -19,9 +21,13 @@
 }
 
 .copyright-info {
-    position: ;
+    margin-top: 20px;
     color: #bbb;
-    height: 10vh;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
 }
 
 @media only screen and (max-width: 1200px) {
