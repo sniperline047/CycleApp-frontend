@@ -23,7 +23,7 @@ export function getRoute(value) {
 
 export const register = newUser => {
 	return axios
-	.post('http://localhost:5000/cycle-it-be434/us-central1/api/register', {
+	.post('https://us-central1-cycle-it-be434.cloudfunctions.net/api/register', {
 		firstName: newUser.firstName,
 		lastName: newUser.lastName,
 		email: newUser.email,
@@ -38,7 +38,7 @@ export const register = newUser => {
 
 export const login = user => {
 	return axios
-	.post('http://localhost:5000/cycle-it-be434/us-central1/api/login', {
+	.post('https://us-central1-cycle-it-be434.cloudfunctions.net/api/login', {
 		email: user.email,
 		password: user.password,
 	})
@@ -53,7 +53,7 @@ export const login = user => {
 export const userProfile = async () => {
 	const token = localStorage.getItem('usertoken');
 	const resp = await axios
-		.get('http://localhost:5000/cycle-it-be434/us-central1/api/profile', {
+		.get('https://us-central1-cycle-it-be434.cloudfunctions.net/api/profile', {
 			headers: {
 				Authorization: token
 			}
@@ -64,7 +64,7 @@ export const userProfile = async () => {
 export const userImage = async (formData) => {
 	const token = localStorage.getItem('usertoken');
 	const resp = await axios
-		.post('http://localhost:5000/cycle-it-be434/us-central1/api/users/image', formData, {
+		.post('https://us-central1-cycle-it-be434.cloudfunctions.net/api/users/image', formData, {
 			headers: {
 				Authorization: token
 			}
@@ -75,7 +75,7 @@ export const userImage = async (formData) => {
 export const bicycleImage = async (formData,bicyclefrmNo) => {
 	const token = localStorage.getItem('usertoken');
 	const resp = await axios
-		.post(`http://localhost:5000/cycle-it-be434/us-central1/api/addBicycleImage/${bicyclefrmNo}`, formData, {
+		.post(`https://us-central1-cycle-it-be434.cloudfunctions.net/api/addBicycleImage/${bicyclefrmNo}`, formData, {
 			headers: {
 				Authorization: token
 			}
@@ -86,7 +86,7 @@ export const bicycleImage = async (formData,bicyclefrmNo) => {
 export const userBicycle = async () => {
 	const token = localStorage.getItem('usertoken');
 	const resp = await axios
-		.get('http://localhost:5000/cycle-it-be434/us-central1/api/getBicycle', {
+		.get('https://us-central1-cycle-it-be434.cloudfunctions.net/api/getBicycle', {
 			headers: {
 				Authorization: token
 			}
@@ -104,7 +104,7 @@ export const addAvailibility = async (bicycle,bicyclefrmNo) => {
 		caption: bicycle.caption,
 	}
 	const resp = await axios
-		.post(`http://localhost:5000/cycle-it-be434/us-central1/api/addBicycleAvail/${bicyclefrmNo}`, bicycleData, {
+		.post(`https://us-central1-cycle-it-be434.cloudfunctions.net/api/addBicycleAvail/${bicyclefrmNo}`, bicycleData, {
 			headers: {
 				Authorization: token
 			}
@@ -114,7 +114,7 @@ export const addAvailibility = async (bicycle,bicyclefrmNo) => {
 
 export const deleteAvailibility = async (bicyclefrmNo) => {
 	const resp = await axios
-		.post(`http://localhost:5000/cycle-it-be434/us-central1/api/deleteBicycleAvail/${bicyclefrmNo}`)
+		.post(`https://us-central1-cycle-it-be434.cloudfunctions.net/api/deleteBicycleAvail/${bicyclefrmNo}`)
 	return resp;
 }
 
@@ -127,7 +127,7 @@ export const addBicycle = async (bicycle) => {
 		color: bicycle.color
 	}
 	const resp = await axios
-		.post(`http://localhost:5000/cycle-it-be434/us-central1/api/addBicycle`, bicycleData, {
+		.post(`https://us-central1-cycle-it-be434.cloudfunctions.net/api/addBicycle`, bicycleData, {
 			headers: {
 				Authorization: token
 			}
@@ -138,7 +138,7 @@ export const addBicycle = async (bicycle) => {
 export const getBicycleAvail = async () => {
 	const token = localStorage.getItem('usertoken');
 	const resp = await axios
-		.get("http://localhost:5000/cycle-it-be434/us-central1/api/getBicycleAvail", {
+		.get("https://us-central1-cycle-it-be434.cloudfunctions.net/api/getBicycleAvail", {
 			headers: {
 				Authorization: token
 			},
@@ -149,7 +149,7 @@ export const getBicycleAvail = async () => {
 export const getSingleBike = async (bicyclefrmNo) => {
 	const token = localStorage.getItem('usertoken');
 	const resp = await axios
-		.get(`http://localhost:5000/cycle-it-be434/us-central1/api/getSingleBike/${bicyclefrmNo}`, {
+		.get(`https://us-central1-cycle-it-be434.cloudfunctions.net/api/getSingleBike/${bicyclefrmNo}`, {
 			headers: {
 				Authorization: token
 			}
