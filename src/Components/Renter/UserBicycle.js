@@ -2,7 +2,7 @@ import React from 'react';
 import './Renter.css';
 import CardList from './CardList.js';
 import {withRouter} from 'react-router-dom';
-import {userBicycle, bicycleImage} from '../../Helpers/UserFunction';
+import {userBicycle, bicycleImage, deleteAvailibility} from '../../Helpers/UserFunction';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -75,6 +75,22 @@ class UserBicycle extends React.Component {
         fileInput.click(); 
     }
 
+    deleteAvail = (bicyclefrmNo) => {
+        deleteAvailibility(bicyclefrmNo)
+        .then((response) => {
+            if(response.data) {
+                alert(response.data.message);
+            }
+        })
+        .catch((err) => {
+            if(err.response.data) {
+                alert(err.response.data.error);
+            } else {
+                console.log(err);
+            }
+        })
+    }
+
     render() {
         const {list} = this.state;
         return(
@@ -101,6 +117,7 @@ class UserBicycle extends React.Component {
                                         availibility={list[index].availibility}
                                         handleEditPicture={this.handleEditPicture}
                                         handleImageChange={this.handleImageChange}
+                                        deleteAvail={this.deleteAvail}
                                     />
                                 );
                             })

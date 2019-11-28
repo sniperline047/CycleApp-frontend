@@ -102,3 +102,60 @@
   bottom: 20;
   right: 5;
 }
+
+* {box-sizing: border-box}
+
+.container {
+  padding-right: 0px 16px 16px 16px;
+  width: 60%;
+}
+
+input[type=text], input[type=number], input[type=datetime-local] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=number]:focus input[type=datetime-local]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+.registerbtn {
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity:1;
+}
+
+@media only screen and (max-width: 700px) {
+  .container {
+      width: 90%;
+  }
+}
+
+input.error {
+  border: 1px solid #EADAE4;
+}
+
+.error {
+  color:#db2269;
+  font-size: 0.625em;
+  display: relative;
+}

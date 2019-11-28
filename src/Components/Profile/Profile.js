@@ -27,7 +27,7 @@ class Profile extends React.Component {
 		this.props.history.push('/')
 	}
 
-	async componentDidMount() {
+	componentDidMount() {
         userProfile().then(resp => {
             this.setState({
                 first_name: resp.data.firstName,

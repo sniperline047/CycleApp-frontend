@@ -8,7 +8,7 @@ import MyRides from '../MyRides/MyRides';
 import Profile from '../Profile/Profile';
 import Renter from '../Renter/Renter';
 import Rentee from '../Rentee/Rentee';
-import List from '../List/List';
+import Book from '../Rentee/Book';
     
 function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -23,7 +23,7 @@ class DashboardHome extends React.Component {
         }
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         fetch("http://dataservice.accuweather.com/currentconditions/v1/190066?apikey=mXAnG2iwcSc8AuIXj02pfnmSs6dGXZ9a", {
             "method": "GET",
         })
@@ -87,8 +87,8 @@ export default function Dashboard() {
                     <Route path={`${path}/rent`}>
                         <Rentee />
                     </Route>
-                    <Route path={`${path}/list`}>
-                        <List />
+                    <Route path={`${path}/book/:bicyclefrmNo`}>
+                        <Book />
                     </Route>
                 </Switch>
             </div>

@@ -94,6 +94,69 @@ export const userBicycle = async () => {
 	return resp;
 }
 
+export const addAvailibility = async (bicycle,bicyclefrmNo) => {
+	const token = localStorage.getItem('usertoken');
+	const bicycleData = {
+		startTime: bicycle.startTime,
+		endTime: bicycle.endTime,
+		price: bicycle.price,
+		bicyclefrmNo: bicyclefrmNo,
+		caption: bicycle.caption,
+	}
+	const resp = await axios
+		.post(`http://localhost:5000/cycle-it-be434/us-central1/api/addBicycleAvail/${bicyclefrmNo}`, bicycleData, {
+			headers: {
+				Authorization: token
+			}
+		});
+	return resp;
+}
+
+export const deleteAvailibility = async (bicyclefrmNo) => {
+	const resp = await axios
+		.post(`http://localhost:5000/cycle-it-be434/us-central1/api/deleteBicycleAvail/${bicyclefrmNo}`)
+	return resp;
+}
+
+export const addBicycle = async (bicycle) => {
+	const token = localStorage.getItem('usertoken');
+	const bicycleData = {
+		company: bicycle.company,
+		model: bicycle.model,
+		bicyclefrmNo: bicycle.bicyclefrmNo,
+		color: bicycle.color
+	}
+	const resp = await axios
+		.post(`http://localhost:5000/cycle-it-be434/us-central1/api/addBicycle`, bicycleData, {
+			headers: {
+				Authorization: token
+			}
+		});
+	return resp;
+}
+
+export const getBicycleAvail = async () => {
+	const token = localStorage.getItem('usertoken');
+	const resp = await axios
+		.get("http://localhost:5000/cycle-it-be434/us-central1/api/getBicycleAvail", {
+			headers: {
+				Authorization: token
+			},
+		});
+	return resp;
+}
+
+export const getSingleBike = async (bicyclefrmNo) => {
+	const token = localStorage.getItem('usertoken');
+	const resp = await axios
+		.get(`http://localhost:5000/cycle-it-be434/us-central1/api/getSingleBike/${bicyclefrmNo}`, {
+			headers: {
+				Authorization: token
+			}
+		});
+	return resp;	
+}
+
 export const validEmailRegex = RegExp(/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i);
 export const validateForm = (errors) => {
   let valid = true;
